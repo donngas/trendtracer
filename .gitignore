@@ -1,0 +1,13 @@
+.env
+bert-base-cased-news-category/
+bert-uncased-keyword-extractor/
+resources/
+apikey.txt
+__pycache__/
+.vscode/
+examplekeywords.csv
+localllmtest.py
+sources.py
+test_response.txt
+test.py
+testgpt.py
