@@ -4,6 +4,8 @@ bert-uncased-keyword-extractor/
 resources/
 apikey.txt
 __pycache__/
+cache/
+nc_workspace/
 .vscode/
 examplekeywords.csv
 localllmtest.py
