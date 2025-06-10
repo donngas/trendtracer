@@ -1,4 +1,5 @@
 .env
+.venv
 bert-base-cased-news-category/
 bert-uncased-keyword-extractor/
 resources/
