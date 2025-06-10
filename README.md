@@ -10,7 +10,7 @@
 - Downloads top articles from selected sources via NewsAPI within free tier quota.
 - Classifies news category and extracts keywords for each article with BERT models.
 - Presents results as a co-occurence network for each category.
-- Relative weight(importance) for each keyword and each connection(edge) is calculated and visually reflected.
+- Relative weight(importance) for each keyword & each connection(edge) is calculated and visually reflected.
 
 ## Side notes
 - Utilizes Intel NPU if the device supports it.
@@ -19,7 +19,7 @@
 ## Future improvements
 - Seek alternative news sources (different API or crawling methods) for larger source data.
 - Train models specifically for the purposes of this project.
-- Improve code structure and library usage
+- Improve code structure and library usage.
 - Update anything and everything out of date.
 
 ## Logs
