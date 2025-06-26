@@ -289,6 +289,9 @@ def main():
     #Print initiation status
     print("[Main] Initiating...")
 
+    #Check model existence
+    downloader()
+
     #Initiate DataFrame for articles retrival
     df = pd.DataFrame([])
 
