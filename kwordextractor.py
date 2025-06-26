@@ -1,4 +1,4 @@
-from transformers import pipeline, BertForTokenClassification, BertForSequenceClassification, BertTokenizer, AutoModelForSeq2SeqLM, BartTokenizer
+from transformers import pipeline, BertForTokenClassification, BertForSequenceClassification, BertTokenizer
 import pandas as pd
 import tqdm
 import intel_npu_acceleration_library
@@ -20,6 +20,20 @@ elif intel_npu_acceleration_library.backend.npu_available():
 def check_HW_availability():
     global GPU_bool, NPU_bool
     return GPU_bool, NPU_bool
+
+#Download model when called by main
+def download_model(model_id):
+    if model_id == "bert-uncased-keyword-extractor":
+        model = BertForTokenClassification.from_pretrained("yanekyuk/bert-uncased-keyword-extractor")
+        model.save_pretrained("./bert-uncased-keyword-extractor")
+        tokenizer = BertTokenizer.from_pretrained("yanekyuk/bert-uncased-keyword-extractor")
+        tokenizer.save_pretrained("./bert-uncased-keyword-extractor")
+        
+    elif model_id == "bert-base-cased-news-category":
+        model = BertForSequenceClassification.from_pretrained("elozano/bert-base-cased-news-category")
+        model.save_pretrained("./bert-base-cased-news-category")
+        tokenizer = BertTokenizer.from_pretrained("elozano/bert-base-cased-news-category")
+        tokenizer.save_pretrained("./bert-base-cased-news-category")
 
 #Load LLMs
 def load_LLMs():

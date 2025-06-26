@@ -66,6 +66,28 @@ def check_input_int(what):
 
     return input_value_int
 
+#Check model existence
+def is_there_model(path):
+    required_files = [
+        "config.json",
+        "pytorch_model.bin",  # or "tf_model.h5" for TensorFlow
+        "tokenizer_config.json",
+        "vocab.txt",  # may vary depending on tokenizer type
+    ]
+    
+    return all(os.path.isfile(os.path.join(path, f)) for f in required_files)
+
+#Download BERT models if not found
+def downloader():
+
+    if not is_there_model("./bert-uncased-keyword-extractor"):
+        print("[Main] bert-uncased-keyword-extractor not found. Downloading...")
+        kwordextractor.download_model("bert-uncased-keyword-extractor")
+
+    if not is_there_model("./bert-base-cased-news-category"):
+        print("[Main] bert-base-cased-news-category not found. Downloading...")
+        kwordextractor.download_model("bert-base-cased-news-category")
+    
 #Whether/How to customize threshold and page size - for article_retrieval_online(df)
 def custom_setting():
     
