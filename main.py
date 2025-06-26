@@ -1,6 +1,5 @@
 print("[Main] Importing...")
 
-from newsapi import NewsApiClient
 import os
 import pandas as pd
 import cooc
@@ -9,18 +8,10 @@ import kwordextractor
 from importlib import reload
 import gc
 import torch
-import tf_keras
 import intel_npu_acceleration_library
 import intel_npu_acceleration_library.backend
 
 print("[Main] Import complete.")
-print("[Main] Setting API Key...")
-
-#NewsAPI Key
-NAPI_KEY = os.environ.get('NewsAPI_API_KEY')
-napi = NewsApiClient(api_key=NAPI_KEY)
-
-print("[Main] API Key set.")
 
 #News category index
 """
@@ -221,7 +212,6 @@ def choose_task(df, kw, NPU_bool):
                 kwordextractor.unload_LLMs()
 
                 torch.cuda.empty_cache()
-                tf_keras.backend.clear_session()
                 #If NPU is used, emptyy NPU cache via acceleration library
                 if NPU_bool:
                     intel_npu_acceleration_library.backend.clear_cache()
@@ -284,12 +274,14 @@ def main():
     columns_kw = list(cat_index.keys())
     kw = pd.DataFrame(columns=columns_kw)
 
-    #Check NPU availability
-    NPU_bool = kwordextractor.check_NPU_availability()
-    if NPU_bool:
-        print("[Main] NPU available, utilizing intel NPU acceleration library.")
+    #Retrieve GPU & NPU availability from kwordextractor
+    GPU_bool, NPU_bool = kwordextractor.check_HW_availability()
+    if GPU_bool:
+        print("[Main] GPU detected via CUDA, utilizing GPU acceleration.")
+    elif NPU_bool:
+        print("[Main] Intel NPU detected, utilizing Intel NPU acceleration library.")
     else:
-        print("[Main] NPU unavailbale.")
+        print("[Main] GPU or NPU unavailbale.")
 
     print("[Main] Initiation complete.")
 

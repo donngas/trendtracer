@@ -1,26 +1,25 @@
-import tensorflow.python
 from transformers import pipeline, BertForTokenClassification, BertForSequenceClassification, BertTokenizer, AutoModelForSeq2SeqLM, BartTokenizer
 import pandas as pd
 import tqdm
 import intel_npu_acceleration_library
 import torch
-import tf_keras
 import gc
 import time
 import intel_npu_acceleration_library.backend
 
-
+GPU_bool = False
 NPU_bool = False
 
-if intel_npu_acceleration_library.backend.npu_available():
+#Check GPU & NPU availability
+if torch.cuda.is_available():
+    GPU_bool = True
+elif intel_npu_acceleration_library.backend.npu_available():
     NPU_bool = True
-else:
-    NPU_bool = False
 
 #Check NPU availability
-def check_NPU_availability():
-    global NPU_bool
-    return NPU_bool
+def check_HW_availability():
+    global GPU_bool, NPU_bool
+    return GPU_bool, NPU_bool
 
 #Load LLMs
 def load_LLMs():
@@ -32,6 +31,7 @@ def load_LLMs():
     global extractor
     global classifier
 
+    global GPU_bool
     global NPU_bool
 
     #Define LLMs locally
@@ -40,14 +40,27 @@ def load_LLMs():
     model_2 = BertForSequenceClassification.from_pretrained("./bert-base-cased-news-category")
     tokenizer_2 = BertTokenizer.from_pretrained("./bert-base-cased-news-category")
 
-    if NPU_bool:
+    if GPU_bool:
+        device = torch.device("cuda")
+        model_1.to(device)
+        model_2.to(device)
+    elif NPU_bool:
         #Compile models for intel NPU
         model_1 = intel_npu_acceleration_library.compile(model_1, dtype=torch.int8)
         model_2 = intel_npu_acceleration_library.compile(model_2, dtype=torch.int8)
+    else:
+        device = torch.device("cpu")
 
     #Assign model pipelines
-    extractor = pipeline(task="token-classification", model=model_1, tokenizer=tokenizer_1)
-    classifier = pipeline(task="text-classification", model=model_2, tokenizer=tokenizer_2)
+    if GPU_bool:
+        extractor = pipeline(task="token-classification", model=model_1, tokenizer=tokenizer_1, device=0)
+        classifier = pipeline(task="text-classification", model=model_2, tokenizer=tokenizer_2, device=0)
+    elif NPU_bool:
+        extractor = pipeline(task="token-classification", model=model_1, tokenizer=tokenizer_1)
+        classifier = pipeline(task="text-classification", model=model_2, tokenizer=tokenizer_2)
+    else:
+        extractor = pipeline(task="token-classification", model=model_1, tokenizer=tokenizer_1, device=-1)
+        classifier = pipeline(task="text-classification", model=model_2, tokenizer=tokenizer_2, device=-1)
 
 #Unload LLMs
 def unload_LLMs():
@@ -75,7 +88,6 @@ def unload_LLMs():
 
     torch.cuda.empty_cache()
     gc.collect()
-    tf_keras.backend.clear_session()
     #If NPU is used, emptyy NPU cache via acceleration library
     if NPU_bool:
         intel_npu_acceleration_library.backend.clear_cache()

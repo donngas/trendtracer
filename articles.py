@@ -2,7 +2,6 @@ import pandas as pd
 from newsapi import NewsApiClient
 import os
 import time
-import tqdm
 
 #NewsAPI Key
 NAPI_KEY = os.environ.get('NewsAPI_API_KEY')
