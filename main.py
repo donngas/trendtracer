@@ -43,7 +43,7 @@ def check_path_exists(directory):
 
     #Check if path exists, create if not
     if os.path.exists(directory):
-        print("[Main]", directory, "directory exists. Continuing to save...")
+        print("[Main]", directory, "directory exists.")
     else:
         print("[Main]", directory, "directory doesn't exist. Creating one...")
         os.makedirs(directory)
@@ -70,9 +70,7 @@ def check_input_int(what):
 def is_there_model(path):
     required_files = [
         "config.json",
-        "pytorch_model.bin",  # or "tf_model.h5" for TensorFlow
         "tokenizer_config.json",
-        "vocab.txt",  # may vary depending on tokenizer type
     ]
     
     return all(os.path.isfile(os.path.join(path, f)) for f in required_files)
@@ -228,7 +226,6 @@ def choose_task(df, kw, NPU_bool):
                 print("[Main] Saving progress to csv...")
 
                 #Save keywords to csv
-                check_path_exists(saving_directory_for_keywords)
                 kwordextractor.save_keywords(kw, saving_directory_for_keywords)
                     
                 kwordextractor.unload_LLMs()
@@ -240,13 +237,10 @@ def choose_task(df, kw, NPU_bool):
 
                 gc.collect()
 
-                reload(kwordextractor)
-
             print("[Main] Keyword extraction complete.")
             print("[Main] Saving to csv...")
 
             #Save keywords to csv
-            check_path_exists(saving_directory_for_keywords)
             kwordextractor.save_keywords(kw, saving_directory_for_keywords)
             
             print("[Main] All process complete.")
@@ -270,8 +264,6 @@ def process_graphs():
     global saving_directory_for_keywords
     global saving_directory_for_graphs
 
-    check_path_exists(saving_directory_for_graphs)
-
     #If input is valid
     for column in columns_kw:
 
@@ -291,6 +283,11 @@ def main():
 
     #Check model existence
     downloader()
+
+    #Check all resource paths exist
+    check_path_exists(saving_directory_for_articles)
+    check_path_exists(saving_directory_for_keywords)
+    check_path_exists(saving_directory_for_graphs)
 
     #Initiate DataFrame for articles retrival
     df = pd.DataFrame([])
@@ -318,7 +315,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-#Todo list
-#kwordextractor - keyword_extraction 디버깅해야함
-#Co-oc 네트워크 가독성 향상

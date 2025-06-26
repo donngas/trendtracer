@@ -10,15 +10,22 @@ import intel_npu_acceleration_library.backend
 GPU_bool = False
 NPU_bool = False
 
+'''
 #Check GPU & NPU availability
 if torch.cuda.is_available():
     GPU_bool = True
 elif intel_npu_acceleration_library.backend.npu_available():
     NPU_bool = True
+'''
 
 #Check NPU availability
 def check_HW_availability():
     global GPU_bool, NPU_bool
+    #Check GPU & NPU availability
+    if torch.cuda.is_available():
+        GPU_bool = True
+    elif intel_npu_acceleration_library.backend.npu_available():
+        NPU_bool = True
     return GPU_bool, NPU_bool
 
 #Download model when called by main
@@ -69,12 +76,15 @@ def load_LLMs():
     if GPU_bool:
         extractor = pipeline(task="token-classification", model=model_1, tokenizer=tokenizer_1, device=0)
         classifier = pipeline(task="text-classification", model=model_2, tokenizer=tokenizer_2, device=0)
+        print("[Kword] Model set to GPU.")
     elif NPU_bool:
         extractor = pipeline(task="token-classification", model=model_1, tokenizer=tokenizer_1)
         classifier = pipeline(task="text-classification", model=model_2, tokenizer=tokenizer_2)
+        print("[Kword] Model set to NPU.")
     else:
         extractor = pipeline(task="token-classification", model=model_1, tokenizer=tokenizer_1, device=-1)
         classifier = pipeline(task="text-classification", model=model_2, tokenizer=tokenizer_2, device=-1)
+        print("[Kword] Model set to CPU.")
 
 #Unload LLMs
 def unload_LLMs():

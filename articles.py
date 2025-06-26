@@ -1,10 +1,12 @@
 import pandas as pd
 from newsapi import NewsApiClient
-import os
+from os import getenv
+from dotenv import load_dotenv
 import time
 
 #NewsAPI Key
-NAPI_KEY = os.environ.get('NewsAPI_API_KEY')
+load_dotenv()
+NAPI_KEY = str(getenv('NewsAPI_API_KEY'))
 napi = NewsApiClient(api_key=NAPI_KEY)
 
 #Ordinal suffix function for logging purposes
@@ -76,8 +78,8 @@ def get_articles(tempdf, threshold, page_size, saving_directory):
 
         try:
             em[i], am[i], tempdf = each_retrieval(source[i], tempdf, threshold, page_size)
-
             print("[Arts]", ordinal(i+1), "retrieval successful.", em[i], "articles found,", am[i], "articles retrieved from", str(source[i])+".")
+
         except Exception as e:
             em[i], am[i], tempdf = 0, 0, tempdf
 
