@@ -29,7 +29,9 @@
   </style>
 </head>
 <body>
-  <h1>Example Result Files</h1>
+  <h1>Example results by trendtracer</h1>
+  <p>Analysis as of 2025-06-28.</br>💡Tip: Use the top right tool bar to move around, zoom in & out!</p>
+
   <ul>
     <li><a href="./example_results/automobile.html">automibile.html</a></li>
     <li><a href="./example_results/entertainment.html">entertainment.html</a></li>
@@ -39,5 +41,52 @@
     <li><a href="./example_results/technology.html">technology.html</a></li>
     <li><a href="./example_results/world.html">world.html</a></li>
   </ul>
+  <hr>
+  <h2>Colors</h2>
+
+  <style>
+    .color-label {
+      display: inline-block;
+      padding: 0.2em 0.6em;
+      margin-right: 0.5em;
+      border-radius: 0.5em;
+      font-weight: bold;
+      color: white;
+      font-size: 0.95em;
+    }
+    .blue { background-color: blue; }
+    .red { background-color: red; }
+    .orange { background-color: orange; }
+    .yellow { background-color: goldenrod; }
+    .grey { background-color: grey; }
+
+    .green { background-color: mediumseagreen; }
+    .brown { background-color: darkkhaki; color: black; }
+    .steelblue { background-color: lightsteelblue; color: black; }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+      }
+    }
+  </style>
+
+  <h3>Node Color (Keyword Importance)</h3>
+  <ul>
+    <li><span class="color-label blue">Blue</span>Top 10% keywords (highest centrality)</li>
+    <li><span class="color-label red">Red</span>Top 10–20% keywords</li>
+    <li><span class="color-label orange">Orange</span>Top 20–50% keywords</li>
+    <li><span class="color-label yellow">Yellow</span>Top 50–80% keywords</li>
+    <li><span class="color-label grey">Grey</span>Bottom 20% keywords</li>
+  </ul>
+
+  <h3>Edge Color (Keyword Co-occurrence Strength)</h3>
+  <ul>
+    <li><span class="color-label green">Green</span>Top 5% of co-occurrence frequencies</li>
+    <li><span class="color-label brown">Brownish-Yellow</span>Top 5–20% of co-occurrences</li>
+    <li><span class="color-label steelblue">Blue-Gray</span>All other co-occurrences</li>
+  </ul>
+
 </body>
 </html>
