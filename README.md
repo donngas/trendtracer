@@ -21,8 +21,8 @@
 - Seek alternative news sources (different API or crawling methods) for larger source data.
 - Train models specifically for the purposes of this project.
 - Improve code structure and library usage.
-- Disable/adjust model reset at article intervals when GPU is in use
-- Give articles as dataset to pipeline rather than sequential method
+- Disable/adjust model reset at article intervals when GPU is in use.
+- Give articles as dataset to pipeline rather than using sequential method.
 
 ## Logs
 - Initial version made in July 2024. Some parts may be deprecated or out of date.
