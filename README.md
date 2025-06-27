@@ -26,4 +26,4 @@
 
 ## Logs
 - Initial version made in July 2024. Some parts may be deprecated or out of date.
-- Code restored to working state in June 2025. Substantial refactoring still needed
+- Code restored to working state in June 2025. Substantial refactoring still needed.
