@@ -277,6 +277,7 @@ def main():
 
     global cat_index
     global cat_index_inverse
+    global extraction_iteration_threshold
 
     #Print initiation status
     print("[Main] Initiating...")
@@ -300,6 +301,7 @@ def main():
     GPU_bool, NPU_bool = kwordextractor.check_HW_availability()
     if GPU_bool:
         print("[Main] GPU detected via CUDA, utilizing GPU acceleration.")
+        extraction_iteration_threshold = 250
     elif NPU_bool:
         print("[Main] Intel NPU detected, utilizing Intel NPU acceleration library.")
     else:
