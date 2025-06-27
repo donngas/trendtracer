@@ -8,7 +8,7 @@
 - Libraries listed in requirements.txt
     - Isolated installation of Torch in virtual environment may take up several gigabytes.
     - Ensure that the Torch installation is compatible with CUDA version, if applicable.
-- A [NewsAPI](https://newsapi.org/) Key in .env
+- A [NewsAPI](https://newsapi.org/) key in .env
 - [bert-uncased-keyword-extractor](https://huggingface.co/yanekyuk/bert-uncased-keyword-extractor) and [bert-base-cased-news-category](https://huggingface.co/elozano/bert-base-cased-news-category/tree/main) are automatically downloaded to directory if not found.
 
 ## Features
