@@ -19,9 +19,9 @@
 
 ## Future improvements
 - Seek alternative news sources (different API or crawling methods) for larger source data.
+- Improve keyword extraction methods to handle words with spaces.
 - Train models specifically for the purposes of this project.
 - Improve code structure and library usage.
-- Disable/adjust model reset at article intervals when GPU is in use.
 - Give articles as dataset to pipeline rather than using sequential method.
 
 ## Logs
