@@ -1,5 +1,6 @@
 .*
 !.gitignore
+!.gitattributes
 bert-base-cased-news-category/
 bert-uncased-keyword-extractor/
 resources/
