@@ -1,8 +1,8 @@
 # trendtracer
 **trendtracer** downloads popular and recent news articles from selected sources and performs keyword analysis, particularly in the form of [co-occurrence networks](https://en.wikipedia.org/wiki/Co-occurrence_network). 
 
-## Results Demo
-- [Click here](https://donngas.github.io/trendtracer/index.html) to see the results!
+## 📊 Results Demo
+- 👉 [Click here](https://donngas.github.io/trendtracer/index.html) to see the results!
 
 ## Requirements
 - Libraries listed in requirements.txt
